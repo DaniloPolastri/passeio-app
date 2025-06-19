@@ -1,0 +1,14 @@
+{
+  "categorias": [
+    {
+      "id": "2",
+      "nome": "Shoppings",
+      "descricao": "Lugares para Compras"
+    },
+    {
+      "nome": "Uber",
+      "descricao": "Lugares para Compras",
+      "id": "fbd4"
+    }
+  ]
+}
