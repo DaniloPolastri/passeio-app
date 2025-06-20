@@ -9,6 +9,16 @@
       "nome": "Uber",
       "descricao": "Lugares para Compras",
       "id": "fbd4"
+    },
+    {
+      "id": "af4d",
+      "nome": "Praia",
+      "descricao": "Parai para tomar banho"
+    },
+    {
+      "id": "8519",
+      "nome": "teste",
+      "descricao": "teste"
     }
   ]
 }
