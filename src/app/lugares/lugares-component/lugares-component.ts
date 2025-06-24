@@ -3,6 +3,7 @@ import {Categoria} from '../../categorias/categoria';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CategoriaService} from '../../categorias/categoria.service';
 import {Observable} from 'rxjs';
+import {LugaresService} from '../lugares-service';
 
 @Component({
   selector: 'app-lugares-component',
@@ -15,7 +16,10 @@ export class LugaresComponent implements OnInit {
   camposForm: FormGroup;
   categorias$!: Observable<Categoria[]>;
 
-  constructor(private categoriaService: CategoriaService) {
+  constructor(
+    private categoriaService: CategoriaService,
+    private service: LugaresService
+  ) {
     this.camposForm = new FormGroup({
       nome: new FormControl('', [Validators.required]),
       categoria: new FormControl('', [Validators.required]),
@@ -30,6 +34,22 @@ export class LugaresComponent implements OnInit {
   }
 
   salvar() {
-    console.log(this.camposForm.value);
+    this.camposForm.markAllAsTouched();
+
+    if(this.camposForm.valid) {
+      this.service.salvar(this.camposForm.value).subscribe({
+        next: data => {
+          console.log('Salva com sucesso: ', data);
+          this.camposForm.reset();
+        },
+        error: err => {console.log(err)}
+      });
+    }
+
+  }
+
+  isCampoInvalido(nomeCampo:string): boolean {
+    const campo = this.camposForm.get(nomeCampo);
+    return (campo?.invalid && campo.touched && campo?.errors?.['required']) || false;
   }
 }
