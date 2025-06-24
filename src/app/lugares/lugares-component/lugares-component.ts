@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Categoria} from '../../categorias/categoria';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CategoriaService} from '../../categorias/categoria.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-lugares-component',
@@ -12,7 +13,7 @@ import {CategoriaService} from '../../categorias/categoria.service';
 export class LugaresComponent implements OnInit {
 
   camposForm: FormGroup;
-  categorias: Categoria[] = [];
+  categorias$!: Observable<Categoria[]>;
 
   constructor(private categoriaService: CategoriaService) {
     this.camposForm = new FormGroup({
@@ -25,9 +26,7 @@ export class LugaresComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.categoriaService.obterTodas().subscribe({
-      next: data => this.categorias = data
-    })
+    this.categorias$ = this.categoriaService.obterTodas();
   }
 
   salvar() {

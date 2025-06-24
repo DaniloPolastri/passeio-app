@@ -24,9 +24,10 @@
 
           <option [value]="" disabled>Selecione..</option>
 
-          @for (elemento of categorias; track elemento.id){
+          @for (elemento of categorias$ | async; track elemento.id){
             <option [value]="elemento.nome">{{elemento.nome}}</option>
           }
+
 
         </select>
       </div>
