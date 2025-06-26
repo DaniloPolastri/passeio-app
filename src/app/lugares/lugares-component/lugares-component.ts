@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, signal} from '@angular/core';
 import {Categoria} from '../../categorias/categoria';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CategoriaService} from '../../categorias/categoria.service';
@@ -14,7 +14,7 @@ import {LugaresService} from '../lugares-service';
 export class LugaresComponent implements OnInit {
 
   camposForm: FormGroup;
-  categorias$!: Observable<Categoria[]>;
+  categories = signal<Categoria[]>([]);
 
   constructor(
     private categoriaService: CategoriaService,
@@ -30,7 +30,11 @@ export class LugaresComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.categorias$ = this.categoriaService.obterTodas();
+    this.categoriaService.obterTodas().subscribe((data) => {
+      console.log(data);
+      this.categories.set(data)
+
+    })
   }
 
   salvar() {
